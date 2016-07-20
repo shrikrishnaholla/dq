@@ -7,3 +7,5 @@ services:
       - "5972:3000"
     env_file:
       - ./.env
+  redis:
+    image: redis:latest

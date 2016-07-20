@@ -1,0 +1,56 @@
+version: "1"
+jobs:
+  mail:
+    image: sendmail:latest
+    command: "{{from}} {{to}} {{subject}} {{body}}"
+    remove: true
+    priority: "high"
+    attempts: 10
+    backoff: true
+    ttl: 30000
+    batch: 5
+
+  logrotate:
+    image: logrotater:latest
+    repeat: "0 0 1 * * *"
+    volumes:
+      - "/var/log/mylog:/var/log/logrotater"
+
+  mongobackup:
+    image: mongo:latest
+    command: "mongodump -o /data/backup"
+    repeat: "0 0 1 * * *"
+    volumes:
+      - "/data/db:/data/db"
+      - "/data/backup:/data/backup"
+
+  billing:
+    dab: "billing.dsb"
+    repeat: "0 0 * * * *"
+
+
+  test:
+    dab: "billing.dsb"
+    image: test:latest
+    command: "hello world"
+    repeat: "* * * * * *"
+    volumes:
+      - "/data/db:/data/db"
+      - "/data/backup:/data/backup"
+    remove: true
+    priority: "high"
+    attempts: 10
+    backoff: true
+    ttl: 5000
+    batch: 5
+dq:
+  redis:
+    port: 6379
+    host: "redis"
+    db: 3
+  queue:
+    watch_interval: 10000
+  ui:
+    enabled: true
+    title: "DQ"
+    port: 3001
