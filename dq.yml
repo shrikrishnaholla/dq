@@ -33,7 +33,7 @@ jobs:
     dab: "billing.dsb"
     image: test:latest
     command: "hello world"
-    repeat: "* * * * * *"
+    repeat: "*/2 * * * *"
     volumes:
       - "/data/db:/data/db"
       - "/data/backup:/data/backup"
@@ -42,7 +42,7 @@ jobs:
     attempts: 10
     backoff: true
     ttl: 5000
-    batch: 5
+    # batch: 5
 dq:
   redis:
     port: 6379
