@@ -1,8 +1,15 @@
 version: "1"
 jobs:
   mail:
-    image: sendmail:latest
-    command: "{{from}} {{to}} {{subject}} {{body}}"
+    image: shrikrishna/dq_sendmail:latest
+    command: "--smtp-user='{{smtp_user}}'"
+      "--smtp-pass='{{smtp_pass}}'"
+      "--smtp-domain='{{smtp_domain}}'"
+      "--from='{{from}}'"
+      "--to='{{to}}'"
+      "--subject='{{subject}}'"
+      "--body='{{body}}'"
+      "--tls={{is_tls}}"
     remove: true
     priority: "high"
     attempts: 10
