@@ -12,21 +12,21 @@ jobs:
 
   logrotate:
     image: logrotater:latest
-    repeat: "0 0 1 * * *"
+    repeat: "0 0 1 * *"
     volumes:
       - "/var/log/mylog:/var/log/logrotater"
 
   mongobackup:
     image: mongo:latest
     command: "mongodump -o /data/backup"
-    repeat: "0 0 1 * * *"
+    repeat: "0 0 1 * *"
     volumes:
       - "/data/db:/data/db"
       - "/data/backup:/data/backup"
 
   billing:
     dab: "billing.dsb"
-    repeat: "0 0 * * * *"
+    repeat: "0 0 * * *"
 
 
   test:
@@ -42,7 +42,6 @@ jobs:
     attempts: 10
     backoff: true
     ttl: 5000
-    # batch: 5
 dq:
   redis:
     port: 6379
