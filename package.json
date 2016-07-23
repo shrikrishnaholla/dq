@@ -9,6 +9,7 @@
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
+    "dockerode": "^2.2.10",
     "express": "~4.13.4",
     "morgan": "~1.7.0"
   }
