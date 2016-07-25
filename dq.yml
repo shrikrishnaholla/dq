@@ -2,14 +2,15 @@ version: "1"
 jobs:
   mail:
     image: shrikrishna/dq_sendmail:latest
-    command: "--smtp-user='{{smtp_user}}'"
-      "--smtp-pass='{{smtp_pass}}'"
-      "--smtp-domain='{{smtp_domain}}'"
-      "--from='{{from}}'"
-      "--to='{{to}}'"
-      "--subject='{{subject}}'"
-      "--body='{{body}}'"
-      "--tls={{is_tls}}"
+    command: >
+      --smtp-user='{{smtp_user}}'
+      --smtp-pass='{{smtp_pass}}'
+      --smtp-domain='{{smtp_domain}}'
+      --from='{{from}}'
+      --to='{{to}}'
+      --subject='{{subject}}'
+      --body='{{body}}'
+      --tls={{is_tls}}
     remove: true
     priority: "high"
     attempts: 10
@@ -17,24 +18,34 @@ jobs:
     ttl: 30000
     batch: 5
 
-  serverless_vote:
-    image: shrikrishna/dq_serverless_vote:latest
-    priority: "normal"
-    attempts: 10
-    backoff: true
-    ttl: 30000
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
+  serverless_example:
+    image: shrikrishna/dq_serverless_example:latest
     service:
       port: 3000
       max_replica: 5
       endpoints:
         vote:
-          uri: "/vote"
-          method: "POST"
-        result:
-          uri: "/result"
+          identifier: "root"
+          uri: "/"
           method: "GET"
+  # serverless_vote:
+  #   image: shrikrishna/dq_serverless_vote:latest
+  #   priority: "normal"
+  #   attempts: 10
+  #   backoff: true
+  #   ttl: 30000
+  #   volumes:
+  #     - "/var/run/docker.sock:/var/run/docker.sock"
+  #   service:
+  #     port: 3000
+  #     max_replica: 5
+  #     endpoints:
+  #       vote:
+  #         uri: "/vote"
+  #         method: "POST"
+  #       result:
+  #         uri: "/result"
+  #         method: "GET"
 
   logrotate:
     image: logrotater:latest
