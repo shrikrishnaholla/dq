@@ -25,27 +25,8 @@ jobs:
       max_replica: 5
       endpoints:
         vote:
-          identifier: "root"
           uri: "/"
           method: "GET"
-  # serverless_vote:
-  #   image: shrikrishna/dq_serverless_vote:latest
-  #   priority: "normal"
-  #   attempts: 10
-  #   backoff: true
-  #   ttl: 30000
-  #   volumes:
-  #     - "/var/run/docker.sock:/var/run/docker.sock"
-  #   service:
-  #     port: 3000
-  #     max_replica: 5
-  #     endpoints:
-  #       vote:
-  #         uri: "/vote"
-  #         method: "POST"
-  #       result:
-  #         uri: "/result"
-  #         method: "GET"
 
   logrotate:
     image: logrotater:latest
