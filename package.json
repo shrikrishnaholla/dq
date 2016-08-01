@@ -11,12 +11,14 @@
     "cookie-parser": "~1.4.3",
     "cron-converter": "0.0.11",
     "debug": "~2.2.0",
+    "dockerode": "github:apocas/dockerode",
     "express": "~4.13.4",
     "js-yaml": "^3.6.1",
     "kue": "^0.11.1",
     "kue-unique": "^1.0.0",
     "morgan": "~1.7.0",
     "nconf": "^0.8.4",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "string": "^3.3.1"
   }
 }
