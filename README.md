@@ -12,14 +12,19 @@ DQ is an amalgamation of the best features of a job scheduler like [resque](http
 To use some features like services, you will need Docker 1.12 or above
 
 ## Usage
-Pull from Docker Hub
-  - Create a `dq.yml` configuration (see [sample dq.yml](https://github.com/shrikrishnaholla/dq/blob/master/dq.yml) in this repo)
-  - Run the docker container for DQ, mounting the docker socket and `dq.yml` at `/dq/dq.yml` path in the container
-  ```docker run -d --name dq -v /path/to/dq.yml:/dq/dq.yml -v /var/run/docker.sock:/var/run/docker.sock shrikrishna/dq```
+- Create a `dq.yml` based on the [sample](https://github.com/shrikrishnaholla/dq/blob/master/dq.yml) in this repo
+- Create a network
+  ```docker network create dq_net```
+- Start redis
+  ```docker run -d --name redis --net dq_net redis```
+- Start DQ
+  ```docker run -it --net dq_net --name dq -p "5972:3000" -p "5973:3001" \
+  -v $(pwd)/dq.yml:/dq/dq.yml -v /var/run/docker.sock:/var/run/docker.sock \
+  shrikrishna/dq
 
 ## Development
 Fork/clone this repo and edit `dq.yml`
-  - [Fork this repo](https://github.com/shrikrishnaholla/dq/blob/master/dq.yml#fork-destination-box)
-  - ```docker-compose up -d```
+- [Fork this repo](https://github.com/shrikrishnaholla/dq/#fork-destination-box)
+- ```docker-compose up -d```
 
 
