@@ -7,3 +7,19 @@ DQ is an amalgamation of the best features of a job scheduler like [resque](http
 - Call a background task with arguments [Ex: sending email]
 - Schedule a recurring task [Ex: backing up db]
 - Run a background service that handles HTTP requests and auto scales based on load [voting, spam checking]
+
+## Requirements
+To use some features like services, you will need Docker 1.12 or above
+
+## Usage
+Pull from Docker Hub
+  - Create a `dq.yml` configuration (see [sample dq.yml](https://github.com/shrikrishnaholla/dq/blob/master/dq.yml) in this repo)
+  - Run the docker container for DQ, mounting the docker socket and `dq.yml` at `/dq/dq.yml` path in the container
+  ```docker run -d --name dq -v /path/to/dq.yml:/dq/dq.yml -v /var/run/docker.sock:/var/run/docker.sock shrikrishna/dq```
+
+## Development
+Fork/clone this repo and edit `dq.yml`
+  - [Fork this repo](https://github.com/shrikrishnaholla/dq/blob/master/dq.yml#fork-destination-box)
+  - ```docker-compose up -d```
+
+
